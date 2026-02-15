@@ -1,5 +1,5 @@
 /* ================================================
-   ABRAHAM WOO | ARK - Main JavaScript
+   Actor | DJ - Main JavaScript
    ================================================ */
 
 (function () {
@@ -16,14 +16,14 @@
   let autoplayTimer = null;
 
   // Cache DOM references BEFORE setMode can be called
-  const abrahamCarousel = document.querySelector('.hero-carousel--abraham');
-  const abrahamImages = abrahamCarousel ? Array.from(abrahamCarousel.querySelectorAll('.hero-img')) : [];
-  const dotsContainer = document.querySelector('.hero-dots--abraham');
+  const actorCarousel = document.querySelector('.hero-carousel--actor');
+  const actorImages = actorCarousel ? Array.from(actorCarousel.querySelectorAll('.hero-img')) : [];
+  const dotsContainer = document.querySelector('.hero-dots--actor');
   const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.hero-dot')) : [];
 
   function showSlide(index) {
     // Update images
-    abrahamImages.forEach(function (img, i) {
+    actorImages.forEach(function (img, i) {
       img.style.opacity = (i === index) ? '1' : '0';
     });
     // Update dots
@@ -38,16 +38,16 @@
   }
 
   function nextSlide() {
-    if (body.classList.contains('ark-mode')) return;
-    if (abrahamImages.length <= 1) return;
-    var next = (currentSlide + 1) % abrahamImages.length;
+    if (body.classList.contains('dj-mode')) return;
+    if (actorImages.length <= 1) return;
+    var next = (currentSlide + 1) % actorImages.length;
     showSlide(next);
   }
 
   function startAutoplay() {
     stopAutoplay();
-    if (body.classList.contains('ark-mode')) return;
-    if (abrahamImages.length <= 1) return;
+    if (body.classList.contains('dj-mode')) return;
+    if (actorImages.length <= 1) return;
     autoplayTimer = setInterval(nextSlide, 4500);
   }
 
@@ -64,16 +64,16 @@
   }
 
   function updateToggleLabels() {
-    const isArk = body.classList.contains('ark-mode');
-    voiceLabel?.classList.toggle('active', !isArk);
-    djLabel?.classList.toggle('active', isArk);
+    const isDj = body.classList.contains('dj-mode');
+    voiceLabel?.classList.toggle('active', !isDj);
+    djLabel?.classList.toggle('active', isDj);
   }
 
   function setMode(mode) {
-    if (mode === 'ark') {
-      body.classList.add('ark-mode');
+    if (mode === 'dj') {
+      body.classList.add('dj-mode');
     } else {
-      body.classList.remove('ark-mode');
+      body.classList.remove('dj-mode');
     }
     updateToggleLabels();
     updateHeroImages();
@@ -83,8 +83,8 @@
 
   if (toggle) {
     toggle.addEventListener('click', () => {
-      const isArk = body.classList.contains('ark-mode');
-      setMode(isArk ? 'abraham' : 'ark');
+      const isDj = body.classList.contains('dj-mode');
+      setMode(isDj ? 'actor' : 'dj');
     });
   }
 
@@ -93,10 +93,13 @@
   const urlMode = urlParams.get('mode');
   const saved = localStorage.getItem('mode');
 
-  if (urlMode === 'ark' || urlMode === 'abraham') {
-    setMode(urlMode);
+  // Support old 'ark'/'abraham' values from localStorage
+  const normalizeMode = (m) => m === 'ark' ? 'dj' : m === 'abraham' ? 'actor' : m;
+
+  if (urlMode === 'dj' || urlMode === 'actor' || urlMode === 'ark' || urlMode === 'abraham') {
+    setMode(normalizeMode(urlMode));
   } else if (saved) {
-    setMode(saved);
+    setMode(normalizeMode(saved));
   } else {
     updateToggleLabels();
   }
