@@ -207,20 +207,44 @@
     });
   });
 
-  /* --- FORM HANDLING --- */
+  /* --- FORM HANDLING (Formspree) --- */
   const form = document.querySelector('.contact-form');
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = form.querySelector('.btn-submit');
       const originalText = btn.textContent;
-      btn.textContent = 'Sent!';
-      btn.style.background = '#2ECC71';
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
-        form.reset();
-      }, 2500);
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          btn.textContent = 'Sent!';
+          btn.style.background = '#2ECC71';
+          form.reset();
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 2500);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch(() => {
+        btn.textContent = 'Error \u2014 try again';
+        btn.style.background = '#E74C3C';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 2500);
+      });
     });
   }
 })();
