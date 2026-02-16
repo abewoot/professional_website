@@ -69,33 +69,53 @@
     djLabel?.classList.toggle('active', isDj);
   }
 
-  function setMode(mode, updateURL = true) {
+  /* --- PATH-BASED ROUTING --- */
+
+  function getModeFromPath() {
+    const path = window.location.pathname.replace(/\/+$/, '');
+    if (path === '/dj') return 'dj';
+    if (path === '/actor') return 'actor';
+    return null;
+  }
+
+  function setMode(mode) {
     if (mode === 'dj') {
       body.classList.add('dj-mode');
+      document.title = 'Ark \u2014 DJ & Music Curator';
     } else {
       body.classList.remove('dj-mode');
+      document.title = 'Abraham Woo \u2014 Actor & Voice Actor';
     }
     updateToggleLabels();
     updateHeroImages();
     startAutoplay();
     localStorage.setItem('mode', mode);
-
-    // Update URL so the link is shareable
-    if (updateURL) {
-      const url = new URL(window.location);
-      url.searchParams.set('mode', mode);
-      window.history.replaceState({}, '', url);
-    }
   }
 
+  // Toggle click: switch mode and update URL path (no page reload)
   if (toggle) {
     toggle.addEventListener('click', () => {
       const isDj = body.classList.contains('dj-mode');
-      setMode(isDj ? 'actor' : 'dj');
+      const newMode = isDj ? 'actor' : 'dj';
+      setMode(newMode);
+      window.history.pushState({}, '', '/' + newMode);
     });
   }
 
-  // Load mode: URL parameter takes priority, then localStorage
+  // Handle browser back/forward navigation
+  window.addEventListener('popstate', () => {
+    const pathMode = getModeFromPath();
+    if (pathMode) {
+      setMode(pathMode);
+    } else {
+      // Root path — use localStorage or default to actor
+      const saved = localStorage.getItem('mode');
+      setMode(saved === 'dj' ? 'dj' : 'actor');
+    }
+  });
+
+  // Load mode: path > query param (backwards compat) > localStorage > default
+  const pathMode = getModeFromPath();
   const urlParams = new URLSearchParams(window.location.search);
   const urlMode = urlParams.get('mode');
   const saved = localStorage.getItem('mode');
@@ -103,12 +123,16 @@
   // Support old 'ark'/'abraham' values from localStorage
   const normalizeMode = (m) => m === 'ark' ? 'dj' : m === 'abraham' ? 'actor' : m;
 
-  if (urlMode === 'dj' || urlMode === 'actor' || urlMode === 'ark' || urlMode === 'abraham') {
-    setMode(normalizeMode(urlMode));
+  if (pathMode) {
+    setMode(pathMode);
+  } else if (urlMode === 'dj' || urlMode === 'actor' || urlMode === 'ark' || urlMode === 'abraham') {
+    // Backwards compatibility: redirect old ?mode= URLs to clean paths
+    const normalized = normalizeMode(urlMode);
+    setMode(normalized);
+    window.history.replaceState({}, '', '/' + normalized + window.location.hash);
   } else if (saved) {
     setMode(normalizeMode(saved));
   } else {
-    // Default to actor mode and set URL
     setMode('actor');
   }
 
