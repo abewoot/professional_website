@@ -69,7 +69,7 @@
     djLabel?.classList.toggle('active', isDj);
   }
 
-  function setMode(mode) {
+  function setMode(mode, updateURL = true) {
     if (mode === 'dj') {
       body.classList.add('dj-mode');
     } else {
@@ -79,6 +79,13 @@
     updateHeroImages();
     startAutoplay();
     localStorage.setItem('mode', mode);
+
+    // Update URL so the link is shareable
+    if (updateURL) {
+      const url = new URL(window.location);
+      url.searchParams.set('mode', mode);
+      window.history.replaceState({}, '', url);
+    }
   }
 
   if (toggle) {
@@ -101,7 +108,8 @@
   } else if (saved) {
     setMode(normalizeMode(saved));
   } else {
-    updateToggleLabels();
+    // Default to actor mode and set URL
+    setMode('actor');
   }
 
   // Dot click handlers
