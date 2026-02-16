@@ -191,9 +191,11 @@ body.dj-mode .site-nav .nav-links a:hover {
 }
 body.dj-mode .site-nav .logo {
   color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.6);
 }
 body.dj-mode .site-nav .nav-hamburger span {
   background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* When scrolled past the hero, show a solid bg with theme colors */
