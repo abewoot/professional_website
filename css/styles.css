@@ -1109,7 +1109,7 @@ body.dj-mode .site-footer {
     height: 100% !important;
     object-fit: cover !important;
     object-position: center 20% !important;
-    transform: scale(0.85);
+    transform: scale(0.85) translateY(8%);
   }
   /* Still hide Actor bg when in DJ mode */
   body.dj-mode .hero-bg-actor {
