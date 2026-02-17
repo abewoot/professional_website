@@ -1100,7 +1100,10 @@ body.dj-mode .site-footer {
   .hero-bg-actor {
     display: block;
     position: absolute;
-    inset: 0;
+    top: var(--nav-h, 70px);
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 0;
     overflow: hidden;
   }
@@ -1108,7 +1111,7 @@ body.dj-mode .site-footer {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    object-position: center 28% !important;
+    object-position: center top !important;
   }
   /* Still hide Actor bg when in DJ mode */
   body.dj-mode .hero-bg-actor {
@@ -1133,7 +1136,7 @@ body.dj-mode .site-footer {
       ) !important;
   }
 
-  /* Actor mobile: white scrim pulled higher */
+  /* Actor mobile: white scrim for text readability */
   .hero-scrim-actor {
     display: block;
     position: absolute;
@@ -1144,11 +1147,11 @@ body.dj-mode .site-footer {
       linear-gradient(
         to top,
         rgba(255, 255, 255, 0.95) 0%,
-        rgba(255, 255, 255, 0.90) 22%,
-        rgba(255, 255, 255, 0.70) 40%,
-        rgba(255, 255, 255, 0.45) 55%,
-        rgba(255, 255, 255, 0.20) 68%,
-        transparent 80%
+        rgba(255, 255, 255, 0.90) 15%,
+        rgba(255, 255, 255, 0.70) 30%,
+        rgba(255, 255, 255, 0.45) 42%,
+        rgba(255, 255, 255, 0.20) 54%,
+        transparent 65%
       );
   }
 
