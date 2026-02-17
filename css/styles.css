@@ -1259,6 +1259,9 @@ body.dj-mode .site-footer {
   .about-content {
     grid-template-columns: 1fr !important;
   }
+  #about {
+    padding-top: clamp(24px, 4vh, 48px);
+  }
   .about-content > div:last-child {
     max-width: 520px;
     margin: 0 auto;
