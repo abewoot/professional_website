@@ -294,10 +294,39 @@ body.dj-mode .nav-links a::after {
   width: 100%;
 }
 
-/* Instagram icon – hidden on desktop, shown in mobile drawer */
+/* Instagram icon in nav links */
 .nav-instagram {
-  display: none;
+  display: list-item;
+  list-style: none;
+  margin-right: 12px;
 }
+.nav-instagram a {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+  color: rgba(22, 33, 62, 0.7);
+  transition: color 0.3s var(--ease);
+}
+.nav-instagram a:hover {
+  color: var(--ab-secondary);
+}
+body.dj-mode .nav-instagram a {
+  color: rgba(255, 255, 255, 0.85);
+}
+body.dj-mode .nav-instagram a:hover {
+  color: #fff;
+}
+.site-nav.scrolled .nav-instagram a {
+  color: var(--text);
+}
+.site-nav.scrolled .nav-instagram a:hover {
+  color: var(--accent);
+}
+.nav-instagram svg {
+  width: 20px;
+  height: 20px;
+}
+
 
 /* Mobile hamburger */
 .nav-hamburger {
