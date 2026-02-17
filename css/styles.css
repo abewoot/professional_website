@@ -294,6 +294,11 @@ body.dj-mode .nav-links a::after {
   width: 100%;
 }
 
+/* Instagram icon – hidden on desktop, shown in mobile drawer */
+.nav-instagram {
+  display: none;
+}
+
 /* Mobile hamburger */
 .nav-hamburger {
   display: none;
@@ -1287,6 +1292,28 @@ body.dj-mode .site-footer {
   }
   .nav-hamburger {
     display: flex;
+  }
+  .nav-instagram {
+    display: list-item;
+    list-style: none;
+  }
+  .nav-instagram a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    transition: all 0.3s var(--ease);
+  }
+  .nav-instagram a:hover {
+    background: rgba(255,255,255,0.16);
+    transform: translateY(-2px);
+  }
+  .nav-instagram svg {
+    width: 22px;
+    height: 22px;
   }
 
   .hero-title,
