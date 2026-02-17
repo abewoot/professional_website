@@ -1105,7 +1105,10 @@ body.dj-mode .site-footer {
     overflow: hidden;
   }
   .hero-bg-actor img {
-    object-position: center 45% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 20% !important;
   }
   /* Still hide Actor bg when in DJ mode */
   body.dj-mode .hero-bg-actor {
