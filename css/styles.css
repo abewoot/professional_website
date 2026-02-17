@@ -619,7 +619,7 @@ body.dj-mode .hero-content {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 10%;
+  object-position: center 20%;
   opacity: 0;
   transition: opacity 0.8s var(--ease);
 }
