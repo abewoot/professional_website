@@ -1379,6 +1379,15 @@ body.dj-mode .site-footer {
   .services-grid,
   .media-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .media-card {
+    padding: 16px;
+  }
+
+  .media-card iframe[src*="soundcloud"] {
+    height: 200px !important;
   }
 
   .form-row {
