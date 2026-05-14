@@ -874,6 +874,7 @@ body.dj-mode .service-card:hover {
    ================================================ */
 .media-grid {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
@@ -1375,7 +1376,8 @@ body.dj-mode .site-footer {
     gap: 6px;
   }
 
-  .services-grid {
+  .services-grid,
+  .media-grid {
     grid-template-columns: 1fr;
   }
 
